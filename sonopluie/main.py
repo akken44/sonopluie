@@ -5,13 +5,13 @@ import serial
 import threading
 import time
 import os
-import RPi.GPIO as GPIO
+from RPi import GPIO
 from neopixel import *
 import subprocess
 
 # Import our package
-from GPS import GPS
-from BLE import BLE
+from .GPS import GPS
+from .BLE import BLE
 from Scenario import Scenario
 
 # True if you want to enable print() method
