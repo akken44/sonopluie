@@ -37,25 +37,19 @@ COLOR_SHUTDOWN = Color(50, 255, 0)  # Orange
 
 class App(object):
 
-    def __init__(self, debug=False, xmlfile='/boot/sonopluie/scenario.xml'):
+    def __init__(self, debug=False, xmlfile='/boot/sonopluie/scenario.xml',
+                 snddir='/boot/sonopluie/sound/'):
         if not debug:
-            print("here")
             sys.stdout = None
 
         # True : GPS
         # False : Beacon
-        print("APP 0")
         self.mode = True
 
-        print("APP 1")
         self.initBtnLed()
-        print("APP 2")
         self.initGPS()
-        print("APP 3")
         self.initBLE()
-        print("APP 4")
-        self.initScenario(xmlfile)
-        print("APP 5")
+        self.initScenario(xmlfile, snddir)
 
     def initBtnLed(self):
         # Init GPIOs
@@ -87,14 +81,15 @@ class App(object):
         self.validNoBeacon = 0
         self.ble = BLE()
 
-    def initScenario(self, xmlfile):
-        self.scenario = Scenario(xmlfile)
+    def initScenario(self, xmlfile, snddir):
+        self.scenario = Scenario(xmlfile, snddir)
 
     def main(self):
         # Starting threads
         threading.Thread(target=self.checkBtn).start()
         threading.Thread(target=self.updateGPS).start()
         threading.Thread(target=self.updateBLE).start()
+        threading.Thread(target=self.scenario.checkEndEvent).start()
 
     def checkBtn(self):
 

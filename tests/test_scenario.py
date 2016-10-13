@@ -24,9 +24,10 @@ mockRpi = MagicMock()
 mockNeopixel = MagicMock()
 mockSerial = MagicMock(Serial=open_serial_port)
 mockBluetooth = MagicMock()
+mockPygame = MagicMock()
 patch.dict("sys.modules", RPi=mockRpi, neopixel=mockNeopixel,
-           serial=mockSerial, bluetooth=mockBluetooth).start()
-XMLFILE = 'tests/scenario0.xml'
+           serial=mockSerial, bluetooth=mockBluetooth,
+           pygame=mockPygame).start()
 
 
 # ----------------------------------------------------------------------------
@@ -38,10 +39,14 @@ from sonopluie import App
 # ----------------------------------------------------------------------------
 # tests
 # ----------------------------------------------------------------------------
+XMLFILE = 'tests/scenario0.xml'
+SNDDIR = 'tests/snd'
+
+
 class TestScenario(unittest.TestCase):
 
     def test_gps(self):
-        app = App(debug=True, xmlfile=XMLFILE)
+        app = App(debug=True, xmlfile=XMLFILE, snddir=SNDDIR)
 
 
 # ----------------------------------------------------------------------------
