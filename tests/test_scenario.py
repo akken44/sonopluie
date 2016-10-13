@@ -4,7 +4,10 @@ from unittest.mock import MagicMock, patch
 
 mockRpi = MagicMock()
 mockNeopixel = MagicMock()
-patch.dict("sys.modules", RPi=mockRpi, neopixel=mockNeopixel).start()
+mockSerial = MagicMock()
+mockBluetooth = MagicMock()
+patch.dict("sys.modules", RPi=mockRpi, neopixel=mockNeopixel,
+           serial=mockSerial, bluetooth=mockBluetooth).start()
 
 from sonopluie import App
 

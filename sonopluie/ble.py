@@ -16,11 +16,10 @@ DEBUG = True
 # NOTE: Python's struct.pack() will add padding bytes unless you make the endianness explicit. Little endian
 # should be used for BLE. Always start a struct.pack() format string with '<'
 
-import os
 import sys
 import struct
 import time
-import bluetooth._bluetooth as bluez
+from bluetooth import _bluetooth as bluez
 
 LE_META_EVENT = 0x3e
 LE_PUBLIC_ADDRESS = 0x00
