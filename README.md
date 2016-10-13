@@ -19,3 +19,19 @@ sudo python3 setup.py install
 ```
 python3 setup.py test
 ```
+
+## Code coverage
+
+```
+make coverage
+# or
+./virtualenv/bin/coverage run -m unittest discover
+```
+
+## Launch tests in TDD mode
+
+```
+./virtualenv/bin/sniffer
+# or
+make tdd
+```

@@ -8,3 +8,7 @@ virtualenv/
 .requirements-test.txt-freezed
 .requirements-dev.txt-freezed
 .requirements-doc.txt-freezed
+
+.coverage
+coverage.xml
+htmlcov
