@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Import used package
 import sys
-import serial
 import threading
 import time
 import os
@@ -12,7 +11,7 @@ import subprocess
 # Import our package
 from .gps import GPS
 from .ble import BLE
-from scenario import Scenario
+from .scenario import Scenario
 
 # True if you want to enable print() method
 DEBUG = False
