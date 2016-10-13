@@ -1,3 +1,5 @@
 sonopluie.egg-info/
 
+virtualenv/
+
 *.pyc
