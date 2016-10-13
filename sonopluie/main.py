@@ -10,9 +10,9 @@ from neopixel import *
 import subprocess
 
 # Import our package
-from .GPS import GPS
-from .BLE import BLE
-from Scenario import Scenario
+from .gps import GPS
+from .ble import BLE
+from scenario import Scenario
 
 # True if you want to enable print() method
 DEBUG = False
