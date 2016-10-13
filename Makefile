@@ -13,10 +13,6 @@ clean-build:
 lint:
 	flake8 --exclude=.tox
 
-# test: clean-pyc
-test: install-prod-deps
-	./virtualenv/bin/nosetests
-
 virtualenv:
 	virtualenv -p $(which python3) virtualenv
 
@@ -43,6 +39,10 @@ install-dev-deps: .requirements-dev.txt-freezed
 	./virtualenv/bin/pip freeze >  .requirements-doc.txt-freezed
 
 install-doc-deps: .requirements-doc.txt-freezed
+
+# test: clean-pyc
+test: .requirements-test.txt-freezed
+	./virtualenv/bin/nosetests
 
 coverage: .requirements-test.txt-freezed
 	./virtualenv/bin/coverage run -m unittest discover
