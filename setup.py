@@ -1,22 +1,38 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import pip
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+try:
+    prod_requirements = pip.req.parse_requirements('requirements.txt')
+except:
+    # new versions of pip requires a session
+    prod_requirements = pip.req.parse_requirements(
+        'requirements.txt', session=pip.download.PipSession())
 
-requirements = (
-)
+try:
+    test_requirements = pip.req.parse_requirements('requirements.txt')
+except:
+    # new versions of pip requires a session
+    test_requirements = pip.req.parse_requirements(
+        'requirements.txt', session=pip.download.PipSession())
 
-dev_requirements = (
-)
+try:
+    dev_requirements = pip.req.parse_requirements('requirements.txt')
+except:
+    # new versions of pip requires a session
+    dev_requirements = pip.req.parse_requirements(
+        'requirements.txt', session=pip.download.PipSession())
 
-doc_requirements = (
-)
-
-prod_requirements = (
-)
+try:
+    doc_requirements = pip.req.parse_requirements('requirements.txt')
+except:
+    # new versions of pip requires a session
+    doc_requirements = pip.req.parse_requirements(
+        'requirements.txt', session=pip.download.PipSession())
 
 
 def find_version(*file_paths):
@@ -52,9 +68,10 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     packages=find_packages(),
-    install_requires=requirements,
+    install_requires=prod_requirements,
     test_suite='tests',
     extras_require={
+        'test': test_requirements,
         'dev': dev_requirements,
         'prod': prod_requirements,
         'doc': doc_requirements
