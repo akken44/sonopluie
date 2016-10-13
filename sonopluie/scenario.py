@@ -106,12 +106,12 @@ class audioSt(object):
 class Scenario(object):
     ''' Scenarios class '''
 
-    def __init__(self):
+    def __init__(self, xmlfile):
         ''' Settings initialization '''
 
         self.listAudio_origin = []
         # Path to the xml file
-        self.xmlParse('/boot/sonopluie/scenario.xml')
+        self.xmlParse(xmlfile)
         # Keeping the original list of audioSt in case of reset
         self.listAudio = self.listAudio_origin
         # list of activ elements

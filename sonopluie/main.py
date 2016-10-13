@@ -5,7 +5,7 @@ import threading
 import time
 import os
 from RPi import GPIO
-from neopixel import *
+from neopixel import Color, Adafruit_NeoPixel
 import subprocess
 
 # Import our package
@@ -13,8 +13,6 @@ from .gps import GPS
 from .ble import BLE
 from .scenario import Scenario
 
-# True if you want to enable print() method
-DEBUG = False
 # By default, a scan last 2 seconds
 TIME_SCAN_BLE = 2
 
@@ -37,20 +35,27 @@ COLOR_RESET = Color(0, 255, 255)  # Violet
 COLOR_SHUTDOWN = Color(50, 255, 0)  # Orange
 
 
-class App:
-    def __init__(self):
+class App(object):
 
-        if not DEBUG:
+    def __init__(self, debug=False, xmlfile='/boot/sonopluie/scenario.xml'):
+        if not debug:
+            print("here")
             sys.stdout = None
 
         # True : GPS
         # False : Beacon
+        print("APP 0")
         self.mode = True
 
+        print("APP 1")
         self.initBtnLed()
+        print("APP 2")
         self.initGPS()
+        print("APP 3")
         self.initBLE()
-        self.initScenario()
+        print("APP 4")
+        self.initScenario(xmlfile)
+        print("APP 5")
 
     def initBtnLed(self):
         # Init GPIOs
@@ -82,8 +87,8 @@ class App:
         self.validNoBeacon = 0
         self.ble = BLE()
 
-    def initScenario(self):
-        self.scenario = Scenario()
+    def initScenario(self, xmlfile):
+        self.scenario = Scenario(xmlfile)
 
     def main(self):
         # Starting threads
@@ -212,5 +217,6 @@ class App:
 
             time.sleep(0.5)
 
-app = App()
-app.main()
+if __name__ == '__main__':
+    app = App()
+    app.main()
