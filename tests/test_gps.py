@@ -46,6 +46,12 @@ class TestGps(unittest.TestCase):
         MockSerial.data = '$GPGGA,,,,,,,,,,,,,,'.encode('utf8')
         self.assertEqual(self.mygps.updatePosition(), False)
 
+    def test_gps_return_negative_data(self):
+        MockSerial.data = '$GPGGA,123519,4807.038,S,01131.000,W,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
+        self.mygps.updatePosition()
+        self.assertEqual(self.mygps.getLongitude(), -11.516666666666667)
+        self.assertEqual(self.mygps.getLatitude(), -48.11729999999999)
+
 
 if __name__ == '__main__':
     unittest.main()  # pragma: no cover
