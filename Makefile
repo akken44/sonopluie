@@ -14,7 +14,7 @@ lint:
 	flake8 --exclude=.tox
 
 virtualenv:
-	virtualenv -p $(which python3) virtualenv
+	virtualenv -p `which python3` virtualenv
 
 .requirements.txt-freezed: requirements.txt virtualenv
 	./virtualenv/bin/pip install -r requirements.txt
