@@ -16,7 +16,10 @@ class TestGps(unittest.TestCase):
     def setUp(self):
         self.mygps = gps.GPS()
         MockSerial.have_gps_data = True
-        MockSerial.data = '$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
+        MockSerial.lat = 4807.038
+        MockSerial.lon = 01131.000
+        MockSerial.lat_dir = 'N'
+        MockSerial.lon_dir = 'E'
 
     def test_can_init_gps_object(self):
         self.assertIsInstance(self.mygps, gps.GPS)
@@ -26,7 +29,8 @@ class TestGps(unittest.TestCase):
         self.assertEqual(self.mygps.getLongitude(), 11.516666666666667)
         self.assertEqual(self.mygps.getLatitude(), 48.11729999999999)
 
-        MockSerial.data = '$GPGGA,123519,4810.038,N,01152.000,E,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
+        MockSerial.lat = 4810.038
+        MockSerial.lon = 01152.000
         self.mygps.updatePosition()
         self.assertEqual(self.mygps.getLongitude(), 11.866666666666667)
         self.assertEqual(self.mygps.getLatitude(), 48.16729999999999)
@@ -39,15 +43,22 @@ class TestGps(unittest.TestCase):
             self.mygps.updatePosition()
 
     def test_gps_does_get_real_data(self):
-        MockSerial.data = '$GPGGA,bad_data,M,46.9,M,,*47'.encode('utf8')
+        MockSerial.lat = ''
+        MockSerial.lat_dir = ''
+        MockSerial.lon = ''
+        MockSerial.lon_dir = ''
         self.assertEqual(self.mygps.updatePosition(), False)
 
     def test_gps_return_empty_data(self):
-        MockSerial.data = '$GPGGA,,,,,,,,,,,,,,'.encode('utf8')
+        MockSerial.lat = None
+        MockSerial.lat_dir = None
+        MockSerial.lon = None
+        MockSerial.lon_dir = None
         self.assertEqual(self.mygps.updatePosition(), False)
 
     def test_gps_return_negative_data(self):
-        MockSerial.data = '$GPGGA,123519,4807.038,S,01131.000,W,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
+        MockSerial.lat_dir = 'S'
+        MockSerial.lon_dir = 'W'
         self.mygps.updatePosition()
         self.assertEqual(self.mygps.getLongitude(), -11.516666666666667)
         self.assertEqual(self.mygps.getLatitude(), -48.11729999999999)
