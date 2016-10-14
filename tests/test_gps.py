@@ -16,6 +16,7 @@ class TestGps(unittest.TestCase):
     def setUp(self):
         self.mygps = gps.GPS()
         MockSerial.have_gps_data = True
+        MockSerial.data = '$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
 
     def test_can_init_gps_object(self):
         self.assertIsInstance(self.mygps, gps.GPS)
@@ -30,13 +31,16 @@ class TestGps(unittest.TestCase):
         self.assertEqual(self.mygps.getLongitude(), 11.866666666666667)
         self.assertEqual(self.mygps.getLatitude(), 48.16729999999999)
 
-    # def test_can_manage_serial_exception(self):
     @patch('serial.SerialException', new_callable=lambda: SerialException)
     def test_can_manage_serial_exception(self, mock_serial):
         self.mygps.updatePosition()
         with self.assertRaises(SerialException):
             MockSerial.have_gps_data = False
             self.mygps.updatePosition()
+
+    def test_gps_does_get_real_data(self):
+        MockSerial.data = '$GPGGA,bad_data,M,46.9,M,,*47'.encode('utf8')
+        self.assertEqual(self.mygps.updatePosition(), False)
 
 
 if __name__ == '__main__':
