@@ -25,7 +25,7 @@ class TestGps(unittest.TestCase):
         self.assertEqual(self.mygps.getLongitude(), 11.516666666666667)
         self.assertEqual(self.mygps.getLatitude(), 48.11729999999999)
 
-        self.mygps.ser.data = '$GPGGA,123519,4810.038,N,01152.000,E,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
+        MockSerial.data = '$GPGGA,123519,4810.038,N,01152.000,E,1,08,0.9,545.4,M,46.9,M,,*47'.encode('utf8')
         self.mygps.updatePosition()
         self.assertEqual(self.mygps.getLongitude(), 11.866666666666667)
         self.assertEqual(self.mygps.getLatitude(), 48.16729999999999)
@@ -38,9 +38,6 @@ class TestGps(unittest.TestCase):
             MockSerial.have_gps_data = False
             self.mygps.updatePosition()
 
-
-# def test_suite():
-#     return unittest.TestSuite([TestGps])
 
 if __name__ == '__main__':
     unittest.main()  # pragma: no cover
