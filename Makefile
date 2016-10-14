@@ -44,7 +44,7 @@ install-doc-deps: .requirements-doc.txt-freezed
 test: .requirements-test.txt-freezed
 	./virtualenv/bin/nosetests
 
-tdd: .requirements-test.txt-freezed
+tdd: .requirements-dev.txt-freezed
 	./virtualenv/bin/sniffer
 
 coverage: .requirements-test.txt-freezed
