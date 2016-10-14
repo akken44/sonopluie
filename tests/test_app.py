@@ -2,26 +2,11 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
+from .helper_serial import MockSerial
 
 # ----------------------------------------------------------------------------
 # my mock classes
 # ----------------------------------------------------------------------------
-class MockSerial(object):
-
-    def __init__(self):
-        self.lat = 4807.038
-        self.lon = 01131.000
-
-    def readline(self):
-        return ('$GPGGA,123519,{0},N,{1},E,1,08,0.9,'
-                '545.4,M,46.9,M,,*47'.format(self.lat, self.lon)
-                .encode('utf8'))
-
-
-def open_serial_port(port, baudrate):
-    return MockSerial()
-
-
 class MockRpiGPIO(object):
 
     BCM = 0
@@ -71,7 +56,7 @@ class Color(object):
 # ----------------------------------------------------------------------------
 mockRpi = MagicMock(GPIO=MockRpiGPIO)
 mockNeopixel = MagicMock(Adafruit_NeoPixel=Neopixel, Color=Color)
-mockSerial = MagicMock(Serial=open_serial_port)
+mockSerial = MagicMock(Serial=MockSerial)
 mockBluetooth = MagicMock()
 mockPygame = MagicMock()
 patch.dict('sys.modules', RPi=mockRpi, neopixel=mockNeopixel,
@@ -154,12 +139,6 @@ class TestApp(unittest.TestCase):
         self.assertEqual(end_event['action'], 'active')
         self.assertEqual(end_event['active'], 'on')
 
-
-# ----------------------------------------------------------------------------
-# testsuite
-# ----------------------------------------------------------------------------
-def test_suite():
-    return unittest.TestSuite([TestApp])
 
 if __name__ == '__main__':
     unittest.main()
