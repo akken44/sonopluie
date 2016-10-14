@@ -26,11 +26,7 @@ class GPS(object):
         line = ''
 
         while not '$GPGGA' in line:
-            try:
-                line = self.ser.readline().decode('latin-1')
-            except serial.SerialException:    # Avoid problem to read some GPS
-                self.ser = serial.Serial(port='/dev/ttyAMA0', baudrate=9600)
-                continue
+            line = self.ser.readline().decode('latin-1')
 
         # Regex used to parse the trame
         m = re.search(r'GPGGA,(\d*\.?\d*),(\d*\.?\d*),([A-Z]?),(\d*\.?\d*),([A-Z]?),', line)
