@@ -2,7 +2,6 @@
 import xml.etree.ElementTree as ET
 from math import *
 import pygame
-import threading
 import time
 import os
 import datetime
@@ -106,12 +105,12 @@ class audioSt(object):
 class Scenario(object):
     ''' Scenarios class '''
 
-    def __init__(self):
+    def __init__(self, xmlfile, snddir):
         ''' Settings initialization '''
 
         self.listAudio_origin = []
         # Path to the xml file
-        self.xmlParse('/boot/sonopluie/scenario.xml')
+        self.xmlParse(xmlfile)
         # Keeping the original list of audioSt in case of reset
         self.listAudio = self.listAudio_origin
         # list of activ elements
@@ -120,9 +119,6 @@ class Scenario(object):
         # Init pygame
         pygame.init()
         pygame.mixer.set_num_channels(len(self.listAudio))
-
-        # Starting the checkEndEvent thread
-        threading.Thread(target=self.checkEndEvent).start()
 
         # Array of channels (1 channel by audioSt)
         self.channels = [None] * len(self.listAudio)
@@ -134,7 +130,7 @@ class Scenario(object):
 
         # Loading audio files in memory
         for audio in self.listAudio:
-            sound = pygame.mixer.Sound('/boot/sonopluie/sound/' + audio.path)
+            sound = pygame.mixer.Sound(os.path.join(snddir, audio.path))
             self.sounds.append(sound)
 
         print ('Loaded !', datetime.datetime.now())

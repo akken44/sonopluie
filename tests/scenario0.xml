@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario id="creon">
+<name>creon</name>
+<comment>creon</comment>
+
+	<!-- 23 Bleu -->
+	<audioST id="Beacon1" path="escargot.ogg" uid="115557701" loop="on" active="on" volume="100">
+		<name>Beacon1</name>
+		<comment></comment>
+		<endEvent target="P1" action="active" active="on"/>
+
+	</audioST>
+	
+	<audioST id="P1" path="pont.ogg" location="48.120154:-1.627737" size="15" loop="off" active="off" volume="100">
+		<name>P1</name>
+		<comment></comment>
+		<startEvent target="Beacon1" action="active" active="off"/>
+
+		<endEvent target="Beacon1" action="active" active="on"/>
+		
+	</audioST>
+		
+	
+</scenario>
