@@ -2,7 +2,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from .helper_serial import MockSerial
+from .test_gps import MockSerial
 from .test_ble import MockBluez
 
 # ----------------------------------------------------------------------------
