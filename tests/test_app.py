@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from .helper_serial import MockSerial
+from .test_ble import MockBluez
 
 # ----------------------------------------------------------------------------
 # my mock classes
@@ -57,10 +58,9 @@ class Color(object):
 mockRpi = MagicMock(GPIO=MockRpiGPIO)
 mockNeopixel = MagicMock(Adafruit_NeoPixel=Neopixel, Color=Color)
 mockSerial = MagicMock(Serial=MockSerial)
-mockBluetooth = MagicMock()
 mockPygame = MagicMock()
 patch.dict('sys.modules', RPi=mockRpi, neopixel=mockNeopixel,
-           serial=mockSerial, bluetooth=mockBluetooth,
+           serial=mockSerial, bluetooth=MockBluez(),
            pygame=mockPygame).start()
 
 
