@@ -12,3 +12,5 @@ virtualenv/
 .coverage
 coverage.xml
 htmlcov
+
+.cache/

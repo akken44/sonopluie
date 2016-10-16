@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, patch
 from .test_gps import MockSerial
 from .test_ble import MockBluez
 
+
 # ----------------------------------------------------------------------------
 # my mock classes
 # ----------------------------------------------------------------------------
@@ -67,8 +68,8 @@ patch.dict('sys.modules', RPi=mockRpi, neopixel=mockNeopixel,
 # ----------------------------------------------------------------------------
 # import mocked classes
 # ----------------------------------------------------------------------------
-from sonopluie.main import App
-from sonopluie import main
+from sonopluie.main import App  # nopep8 Disable pep8 (need to import after
+from sonopluie import main  # nopep8                   mock for tests)
 
 
 # ----------------------------------------------------------------------------

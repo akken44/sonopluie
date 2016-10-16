@@ -29,7 +29,7 @@ patch.dict(
     bluetooth=MagicMock(_bluetooth=MockBluez),
 ).start()
 
-from sonopluie import ble
+from sonopluie import ble  # nopep8 Import after for mock
 
 
 class TestBle(unittest.TestCase):
