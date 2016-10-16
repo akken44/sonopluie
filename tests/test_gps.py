@@ -38,7 +38,7 @@ patch.dict(
     serial=MagicMock(Serial=MockSerial),
 ).start()
 
-from sonopluie import gps  # nopep8 Import after for mock
+from sonopluie import gps  # nopep8 isort:skip Import after for mock
 
 
 class TestGps(unittest.TestCase):
