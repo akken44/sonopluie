@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import serial
-from math import sin, cos, sqrt, atan2, radians, floor
 import re
+from math import atan2, cos, floor, radians, sin, sqrt
+
+import serial
 
 
 class GPS(object):

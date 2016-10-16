@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 # Import used package
+import os
+import subprocess
 import sys
 import threading
 import time
-import os
+
+from neopixel import Adafruit_NeoPixel, Color
 from RPi import GPIO
-from neopixel import Color, Adafruit_NeoPixel
-import subprocess
 
 # Import our package
-from .gps import GPS
 from .ble import BLE
+from .gps import GPS
 from .scenario import Scenario
 
 # By default, a scan last 2 seconds

@@ -1,7 +1,5 @@
 sonopluie.egg-info/
 
-virtualenv/
-
 *.pyc
 
 .requirements.txt-freezed
@@ -14,3 +12,4 @@ coverage.xml
 htmlcov
 
 .cache/
+.tox

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+
 import pip
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -68,12 +69,12 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     packages=find_packages(),
-    install_requires=prod_requirements,
+    # install_requires={prod_requirements},
     test_suite='tests',
     extras_require={
-        'test': test_requirements,
-        'dev': dev_requirements,
-        'prod': prod_requirements,
-        'doc': doc_requirements
+        # 'test': test_requirements,
+        # 'dev': dev_requirements,
+        # 'prod': prod_requirements,
+        # 'doc': doc_requirements
     }
 )

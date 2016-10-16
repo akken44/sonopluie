@@ -1,4 +1,5 @@
 TEST_PATH=./
+UNAME_S := $(shell uname -s)
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm --force {} +
@@ -13,42 +14,46 @@ clean-build:
 lint:
 	flake8 --exclude=.tox
 
-virtualenv:
-	virtualenv -p `which python3` virtualenv
+.tox/py35:
+	tox --notest
 
-.requirements.txt-freezed: requirements.txt virtualenv
-	./virtualenv/bin/pip install -r requirements.txt
-	./virtualenv/bin/pip freeze >  .requirements.txt-freezed
+.requirements.txt-freezed: requirements.txt .tox/py35
+	./.tox/py35/bin/pip install -r requirements.txt
+	./.tox/py35/bin/pip freeze >  .requirements.txt-freezed
 
 install-prod-deps: .requirements.txt-freezed
 
 .requirements-test.txt-freezed: requirements-test.txt .requirements.txt-freezed
-	./virtualenv/bin/pip install -r requirements-test.txt
-	./virtualenv/bin/pip freeze >  .requirements-test.txt-freezed
+	./.tox/py35/bin/pip install -r requirements-test.txt
+	./.tox/py35/bin/pip freeze >  .requirements-test.txt-freezed
 
 install-test-deps: .requirements-test.txt-freezed
 
-.requirements-dev.txt-freezed: requirements-dev.txt .requirements-test.txt-freezed
-	./virtualenv/bin/pip install -r requirements-dev.txt
-	./virtualenv/bin/pip freeze >  .requirements-dev.txt-freezed
+.requirements-dev.txt-freezed: requirements-dev.txt requirements-$(UNAME_S).txt .requirements-test.txt-freezed
+	./.tox/py35/bin/pip install -r requirements-dev.txt
+	./.tox/py35/bin/pip install -r requirements-$(UNAME_S).txt
+	./.tox/py35/bin/pip freeze >  .requirements-dev.txt-freezed
 
 install-dev-deps: .requirements-dev.txt-freezed
 
 .requirements-doc.txt-freezed: requirements-doc.txt .requirements.txt-freezed
-	./virtualenv/bin/pip install -r requirements-doc.txt
-	./virtualenv/bin/pip freeze >  .requirements-doc.txt-freezed
+	./.tox/py35/bin/pip install -r requirements-doc.txt
+	./.tox/py35/bin/pip freeze >  .requirements-doc.txt-freezed
 
 install-doc-deps: .requirements-doc.txt-freezed
 
 # test: clean-pyc
 test: .requirements-test.txt-freezed
-	./virtualenv/bin/nosetests
+	./.tox/py35/bin/py.test tests --pep8 --mccabe
 
 tdd: .requirements-dev.txt-freezed
-	./virtualenv/bin/sniffer
+	./.tox/py35/bin/sniffer
+
+isort: .requirements-test.txt-freezed
+	./.tox/py35/bin/isort --skip-glob=.tox --recursive --diff . 
 
 coverage: .requirements-test.txt-freezed
-	./virtualenv/bin/coverage run -m unittest discover
-	./virtualenv/bin/coverage xml
-	./virtualenv/bin/coverage html
-	./virtualenv/bin/coverage report --fail-under 100
+	./.tox/py35/bin/coverage run -m unittest discover
+	./.tox/py35/bin/coverage xml
+	./.tox/py35/bin/coverage html
+	./.tox/py35/bin/coverage report --fail-under 100

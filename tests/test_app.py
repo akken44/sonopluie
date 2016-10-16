@@ -2,8 +2,11 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from .test_gps import MockSerial
+# ----------------------------------------------------------------------------
+# import mocked classes
+# ----------------------------------------------------------------------------
 from .test_ble import MockBluez
+from .test_gps import MockSerial
 
 
 # ----------------------------------------------------------------------------
@@ -65,12 +68,9 @@ patch.dict('sys.modules', RPi=mockRpi, neopixel=mockNeopixel,
            pygame=mockPygame).start()
 
 
-# ----------------------------------------------------------------------------
-# import mocked classes
-# ----------------------------------------------------------------------------
-from sonopluie.main import App  # nopep8 Disable pep8 (need to import after
-from sonopluie import main  # nopep8                   mock for tests)
-
+# Disable pep8 & isort (need to import after mock for tests)
+from sonopluie import main  # nopep8 isort:skip
+from sonopluie.main import App  # nopep8 isort:skip
 
 # ----------------------------------------------------------------------------
 # tests

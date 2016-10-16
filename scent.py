@@ -1,5 +1,7 @@
-from sniffer.api import * # import the really small API
-import os, termstyle
+import os
+
+import termstyle
+from sniffer.api import *  # import the really small API
 
 # you can customize the pass/fail colors like this
 pass_fg_color = termstyle.green

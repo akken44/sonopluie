@@ -1,7 +1,5 @@
 [run]
 branch = True
-omit =
-	virtualenv/*
 
 [paths]
 source =

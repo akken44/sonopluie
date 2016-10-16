@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+import datetime
+import os
+import time
 import xml.etree.ElementTree as ET
 from math import *
+
 import pygame
-import time
-import os
-import datetime
 
 
 class audioSt(object):

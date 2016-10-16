@@ -3,6 +3,11 @@ import argparse
 import math
 from unittest.mock import MagicMock, patch
 
+# ----------------------------------------------------------------------------
+# import mocked classes
+# ----------------------------------------------------------------------------
+from sonopluie.main import App
+
 
 # ----------------------------------------------------------------------------
 # my mock classes
@@ -140,10 +145,6 @@ patch.dict('sys.modules', RPi=mockRpi, neopixel=mockNeopixel,
            serial=mockSerial, bluetooth=mockBluetooth,
            pygame=mockPygame).start()
 
-# ----------------------------------------------------------------------------
-# import mocked classes
-# ----------------------------------------------------------------------------
-from sonopluie.main import App
 
 # ----------------------------------------------------------------------------
 # main
